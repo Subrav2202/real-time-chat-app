@@ -1,0 +1,163 @@
+@font-face {
+  font-family: "Montserrat-ExtraBold";
+  src: url("../assets/fonts/Montserrat-ExtraBold/Montserrat-ExtraBold.ttf")
+    format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat-Black";
+  src: url("../assets/fonts/Montserrat-Black/Montserrat-Black.ttf")
+    format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat-Bold";
+  src: url("../assets/fonts/Montserrat-Bold/Montserrat-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat-ExtraLight";
+  src: url("../assets/fonts/Montserrat-ExtraLight/Montserrat-ExtraLight.ttf")
+    format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat-Regular";
+    src:url("../assets/fonts/Montserrat-Regular/Montserrat-Regular.ttf")
+      format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat-Medium";
+    src:url("../assets/fonts/Montserrat-Medium/Montserrat-Medium.ttf")
+      format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat-Light";
+   src: url("../assets/fonts/Montserrat-Light/Montserrat-Light.ttf")
+      format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat-SemiBold";
+    src:url("../assets/fonts/Montserrat-SemiBold/Montserrat-SemiBold.ttf")
+      format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat-Thin";
+    src:url("../assets/fonts/Montserrat-Thin/Montserrat-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Congenial-ExtraLight";
+    src:url("../assets/fonts/Congenial-ExtraLight/Congenial-ExtraLight.ttf")
+      format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Congenial-Hairline";
+    src:url("../assets/fonts/Congenial-Hairline/Congenial-Hairline.ttf")
+      format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Congenial-Black";
+    src:url("../assets/fonts/Congenial-Black/Congenial-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Congenial-Heavy";
+    src:url("../assets/fonts/Congenial-Heavy/Congenial-Heavy.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Congenial-Bold";
+    src:url("../assets/fonts/Congenial-Bold/Congenial-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Congenial-Light";
+    src:url("../assets/fonts/Congenial-Light/Congenial-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Congenial-UltraLight";
+    src:url("../assets/fonts/Congenial-UltraLight/Congenial-UltraLight.ttf")
+      format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Congenial-Regular";
+    src:url("../assets/fonts/Congenial/Congenial.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Congenial-Medium";
+   src : url("../assets/fonts/Congenial-Medium/Congenial-Medium.ttf")
+      format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Congenial-Thin";
+  src: url("../assets/fonts/Congenial-Thin/Congenial-Thin.ttf")
+    format("truetype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}

@@ -6,6 +6,9 @@ import appLogo from "../assets/images/chat-app-logo-1.jpg";
 import RegularButton from "../components/RegularButton";
 import { emailRegex, snowFlakeFlowers } from "../configs/constants";
 import { useForm } from "react-hook-form";
+import { loginUser, registerUser } from "../store/user/userAction";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Auth() {
   const intiValue = {
@@ -24,12 +27,18 @@ function Auth() {
   const [islogin, setIslogin] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // Add login logic here
-    console.log("Login form submitted");
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  const handleLogin = (loginData) => {
+    const { userName, ...rest } = loginData;
+    console.log({loginData})
+    dispatch(loginUser(rest));
+    user?.accessToken && navigate("/chat");
   };
-  const handleSignUp = () => {
+  const handleSignUp = (registerData) => {
+    dispatch(registerUser(registerData));
   };
 
   return (
@@ -87,7 +96,7 @@ function Auth() {
                     onClick={() => {
                       setIsMounted(true);
                       setIslogin(false);
-                      reset()
+                      reset();
                     }}
                   >
                     Sign Up
@@ -160,9 +169,9 @@ function Auth() {
                   <div className="login-footer">
                     <span
                       className="regular-text"
-                      onClick={() =>{
-                        setIslogin(true)
-                        reset()
+                      onClick={() => {
+                        setIslogin(true);
+                        reset();
                       }}
                     >
                       Login

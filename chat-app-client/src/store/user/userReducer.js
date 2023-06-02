@@ -1,4 +1,4 @@
-import { REGISTER_USER } from './userType'
+import { LOGIN_USER } from './userType'
 
 const initialState = {
     user: []
@@ -6,7 +6,7 @@ const initialState = {
 
 export const userRedcuer = (state = initialState, action) => {
     switch (action.type) {
-        case REGISTER_USER:
+        case LOGIN_USER:
             return (
                 {
                     ...state,

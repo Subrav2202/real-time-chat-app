@@ -1,0 +1,30 @@
+.chat-header {
+  display: flex;
+  height: 2.5rem;
+  background: #0c0b1b;
+  padding: 10px 16px;
+  align-items: center;
+  border-bottom: 1px solid rgb(46, 46, 46);
+  .avatar {
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+  }
+  .name-wrapper {
+    margin-left: 1.5rem;
+    .name {
+      margin: 0;
+      font-weight: 500;
+      color: white;
+    }
+    .status {
+      font-size: 0.8rem;
+      margin: 0;
+      color: rgb(99, 99, 99);
+      font-weight: 500;
+    }
+  }
+  .icons{
+    margin-left: auto;
+  }
+}

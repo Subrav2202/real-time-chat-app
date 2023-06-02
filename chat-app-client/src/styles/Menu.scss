@@ -1,0 +1,37 @@
+.header-wrapper {
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
+  h1 {
+    font-size: 1.5rem;
+  }
+  div {
+    display: flex;
+    gap: 2.2rem;
+  }
+}
+.search-wrapper{
+  display: flex;
+  margin-top: 0.8rem;
+  background: rgb(23, 26, 36);
+  border-radius: 0.4rem;
+  border-bottom: 0.1px solid rgb(107, 107, 107);
+    input{
+        width: 90%;
+        border: none;
+        color: white;
+        background: inherit;
+        padding: 0.5rem 1rem;
+        border-radius: 0.4rem 0 0 0.4rem;
+    }
+    input:focus{
+      outline: none;
+    }
+    div{
+      padding: 0 10px;
+      border-radius:0 0.4rem 0.4rem 0;
+      display: flex;
+      align-items: center;
+    }
+}

@@ -13,7 +13,6 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
-
 /* Font sizes for different screen sizes */
 @media (max-width: 768px) {
   html {
@@ -32,8 +31,6 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -87,7 +84,7 @@ button:focus-visible {
 }
 
 .title {
-  font-size:1.25rem;
+  font-size: 1.25rem;
   font-family: "Congenial-Bold";
 }
 
@@ -104,8 +101,14 @@ button:focus-visible {
   font-size: 0.8rem;
   font-family: "Congenial-Thin";
 }
-.error-message{
+.error-message {
   font-size: 0.7rem;
   font-family: "Congenial-Thin";
-  color:red;
+  color: red;
+}
+.icon {
+  margin-left: 1rem;
+  padding: 1rem;
+  color: #fff;
+  cursor: pointer;
 }

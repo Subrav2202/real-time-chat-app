@@ -1,0 +1,18 @@
+.chat-wrapper {
+  display: flex;
+}
+.menu-component {
+  min-width: 330px;
+  width: 28%;
+  background:#0c0b1b;
+  height: 100vh;
+  padding: 0 2rem;
+  border-right: 1px solid rgb(46, 46, 46);
+}
+.chatbox-component {
+  border-left: "1px solid rgba(0, 0, 0, 0.14)";
+  width: 72%;
+  min-width: 300px;
+  height: 100%;
+}
+

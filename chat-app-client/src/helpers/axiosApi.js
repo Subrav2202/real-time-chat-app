@@ -8,25 +8,24 @@ export const axiosApi = axios.create({
   baseURL: API_URL,
 });
 
-// Add a request interceptor
 axiosApi.interceptors.request.use(
   (config) => {
-    console.log(config);
-    if (!config.url.includes("login") && !config.url.includes("register")) {
-        console.log('hello')
-      const token = localStorage.getItem(accessToken);
+    // Check if the request URL is not the login or register endpoint
+    if (config.url !== '/api/auth/login' && config.url !== '/api/auth/register') {
+      // Get the token from localStorage or any other source
+      const token = localStorage.getItem('accessToken');
+      
+      // Add the token to the request headers
       if (token) {
-        config.headers["Authorization"] = "Bearer " + token;
+        config.headers['Authorization'] = `Bearer ${token}`;
       }
-      config.headers["Content-Type"] = "application/json";
-      return config;
     }
+
+    return config;
   },
   (error) => {
-    console.log('hh')
-    Promise.reject(error);
-  }
-);
+    return Promise.reject(error);
+});
 
 axiosApi.interceptors.response.use(
   (response) => response,

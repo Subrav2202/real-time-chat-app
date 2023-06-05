@@ -1,4 +1,4 @@
-import "./Auth.scss";
+import "../styles/Auth/index.scss";
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
 import AnimatedInput from "../components/AnimatedInput";
@@ -33,24 +33,43 @@ function Auth() {
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
-  const handleLogin = async(loginData) => {
-    const { firstName, lastName, phnNo, profilePic, ...rest } = loginData;
-    await dispatch(loginUser(rest));
-    reset()
-    const token = await localStorage.getItem("accessToken")
-    token && navigate("/chat");
+  console.log({ user });
+
+  useEffect(() => {
+    if (user.length) {
+      // Asynchronous function to set a value in localStorage
+      const setItemInLocalStorage = (key, value) => {
+        return new Promise((resolve) => {
+          localStorage.setItem(key, value);
+          resolve();
+        });
+      };
+      // Set the value in localStorage
+      setItemInLocalStorage("accessToken", user?.accessToken).then(() => {
+        navigate("/chat");
+      });
+    }
+
+    return () => {};
+  }, [user]);
+
+  const handleLogin = (loginData) => {
+    const { email, password, ...rest } = loginData;
+    dispatch(loginUser({ email, password }));
+    // navigate("/chat");
+    // reset();
   };
   const handleSignUp = (registerData) => {
     const formData = new FormData();
-    formData.append("firstName",registerData?.firstName);
+    formData.append("firstName", registerData?.firstName);
     formData.append("lastName", registerData?.lastName);
     formData.append("password", registerData?.password);
     formData.append("email", registerData?.email);
     formData.append("phnNo", registerData?.phnNo);
     formData.append("file", registerData?.profilePic?.[0]); // Assuming you have a file object
     dispatch(registerUser(formData));
-    reset()
-    setIslogin(!islogin)
+    reset();
+    setIslogin(!islogin);
   };
 
   return (

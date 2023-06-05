@@ -1,6 +1,5 @@
 import { useState } from "react";
-import  '../styles/Chat.scss';
-import  '../styles/Menu.scss'
+import '../styles/Chat/index.scss';
 import axios from "axios";
 import { useMessages } from "../hooks/useMessages";
 import Menu from "../chat/menu/Menu";

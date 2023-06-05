@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from "react";
-import Chatheader from "../../styles/ChatHeader.scss";
-import Massege from "../../styles/Massege.scss";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getChatHistory } from "../../store/chat/chatAction";
 import ChatHeader from "./ChatHeader";
 import Masseges from "./Masseges";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { getChatHistory } from "../../store/chat/chatAction";
-import { useDispatch } from "react-redux";
 
 function ChatBox() {
   const { user } = useSelector((state) => state.user);

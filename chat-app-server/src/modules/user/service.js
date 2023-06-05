@@ -10,13 +10,13 @@ const {
   update,
 } = require("../../core/repository");
 
-const { Model, name: ModelName } = require("./model");
+const { UserModel, name: ModelName } = require("./model");
 
 const changePassword = async (user, newPassword) => {
   const id = user._id;
-  const model = await Model.findById(id);
+  const model = await UserModel.findById(id);
   if (model) {
-    await Model.setPassword(model, newPassword);
+    await UserModel.setPassword(model, newPassword);
     model.updatedAt = Date.now().toString();
     model.save();
     return model._id;
@@ -26,8 +26,8 @@ const changePassword = async (user, newPassword) => {
 };
 
 
-const checkUser = async (username, password) => {
-  const user = await Model.findOne({ username }).lean(); // status: "Active"
+const checkUser = async (email, password) => {
+  const user = await UserModel.findOne({ email }).lean(); // status: "Active"
   if (user) {
     const match = await bcrypt.compare(password, user.passwordHash);
     const { __v, passwordHash, ...rest } = user;
@@ -49,14 +49,13 @@ const createUser = async (user) => {
 };
 
 const tryCreateUser = async (user) => {
-  const item = await Model.findOne({ email: user.email });
+  const item = await UserModel.findOne({ email: user.email });
   if (item) {
     return false;
   }
   const id = await createUser(user);
   return id;
 };
-
 
 module.exports = {
   save,

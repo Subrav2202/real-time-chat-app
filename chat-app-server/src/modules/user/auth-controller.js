@@ -1,10 +1,10 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
-const bcrypt = require("bcrypt");
-const mongoose = require("mongoose");
 const { handleValidation } = require("../../common/middlewares");
 const { validateRegistration } = require("./request");
+const cloudinary = require("../../common/cloudinary");
+const uploader = require("../../common/multer");
 const {
   checkUser,
   searchOne,
@@ -16,13 +16,20 @@ const router = express.Router();
 const modelName = "User";
 
 const createUserHandler = async (req, res, next) => {
+  const file = req.file;
   try {
+    let cloudinaryResponse = '';
+    if (file) {
+      // Upload the file to Cloudinary
+      cloudinaryResponse = await cloudinary.uploader.upload(file.path);
+      req.body.imageUrl = cloudinaryResponse.secure_url
+    }
     const user = req.body;
     const id = await tryCreateUser(user);
     if (!id) {
       return res.status(400).send({
         status: "error",
-        message: "User already exists by username or email or phone number.",
+        message: "User already exists by email.",
       });
     }
     return res
@@ -34,89 +41,32 @@ const createUserHandler = async (req, res, next) => {
 };
 
 const loginHandler = async (req, res) => {
-  if (req.body.username && req.body.password) {
-    const user = await checkUser(req.body.username, req.body.password);
+  if (req.body.email && req.body.password) {
+    const user = await checkUser(req.body.email, req.body.password);
     if (user) {
       const token = jwt.sign(
         {
           id: user._id,
-          username: req.body.username,
-          roleId: user.roleId,
+          user: `${req.body.firstName} ${req.body.lastName}`,
           exp:
             Math.floor(Date.now() / 1000) +
             parseInt(process.env.JWT_EXPIRES_IN, 10),
         },
         process.env.JWT_SECRET
       );
-      const { passwordHash, ...rest } = user;
+      const { passwordHash, chatHistory, ...rest } = user;
 
-      const antdPayload = {
-        status: "ok",
+      const payload = {
         accessToken: token,
-        type: "account",
-        currentAuthority: "admin",
-        user: rest,
-        sessionId: uuidv4(),
-        userInfo: {
-          name: "Serati Ma",
-          avatar:
-            "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png",
-          userid: "00000001",
-          email: "antdesign@alipay.com",
-          signature: "海纳百川，有容乃大",
-          title: "交互专家",
-          group: "蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED",
-          tags: [
-            {
-              key: "0",
-              label: "很有想法的",
-            },
-            {
-              key: "1",
-              label: "专注设计",
-            },
-            {
-              key: "2",
-              label: "辣~",
-            },
-            {
-              key: "3",
-              label: "大长腿",
-            },
-            {
-              key: "4",
-              label: "川妹子",
-            },
-            {
-              key: "5",
-              label: "海纳百川",
-            },
-          ],
-          notifyCount: 12,
-          unreadCount: 11,
-          country: "China",
-          access: "admin",
-          geographic: {
-            province: {
-              label: "浙江省",
-              key: "330000",
-            },
-            city: {
-              label: "杭州市",
-              key: "330100",
-            },
-          },
-          address: "西湖区工专路 77 号",
-          phone: "0752-268888888",
-        },
+        ...rest,
       };
-
-      res.status(200).send(antdPayload);
+      res.status(200)
+        .send({ status: "ok", message: ``, data: payload });;
       return;
     }
   }
 
-  res.status(400).send("Invalid username or password xyz");
+  res.status(400).send("Invalid username or password");
 };
 
 const forgotPasswordHandler = async (req, res) => {
@@ -136,6 +86,7 @@ const forgotPasswordHandler = async (req, res) => {
 
 router.post(
   "/register",
+  uploader.single("file"),
   handleValidation(validateRegistration),
   createUserHandler
 );

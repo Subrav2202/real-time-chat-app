@@ -5,7 +5,9 @@ const { MongoError } = require("../../common/errors");
 
 const userSchema = new mongoose.Schema(
   {
-    userName: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    phnNo: { type: String, required: false },
     email: {
       type: String,
       required: true,
@@ -13,13 +15,14 @@ const userSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
     },
-    createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      default: "000000000000",
+    imageUrl:{ type: String, required: false },
+    passwordHash: { type: String, required: true },
+    chatHistory: {
+      type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+      default: [] // Set the default value to an empty array
     },
     createdAt: {
-      type:Date,
+      type: Date,
       default: Date.now
     }
   },
@@ -27,8 +30,8 @@ const userSchema = new mongoose.Schema(
 );
 
 // create index for username and email individually
-userSchema.index({ userName: "text" });
-userSchema.index({ email: "text" });
+// userSchema.index({ userName: "text" });
+// userSchema.index({ email: "text" });
 
 userSchema.post("save", (error, doc, next) => {
   if (error.name === "MongoError" && error.code === 11000) {
@@ -46,4 +49,4 @@ userSchema.post("save", (error, doc, next) => {
 const ModelName = "User";
 const User = mongoose.model(ModelName, userSchema);
 
-module.exports = { Model: User, name: ModelName };
+module.exports = { UserModel: User, name: ModelName };

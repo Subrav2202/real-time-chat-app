@@ -13,7 +13,7 @@ const uri = isMongoDbUrl
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true,
+  // useCreateIndex: true,
 };
 const connectWithDb = async (cb, em) => {
   const connectionResult = await mongoose.connect(uri, options);

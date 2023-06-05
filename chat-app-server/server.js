@@ -9,14 +9,11 @@ const PORT = process.env.PORT;
 const start = async () => {
   // eslint-disable-next-line no-return-await
   const configureRoutes = async (app) => {
-    console.log({app})
     app.use(handleRequest);
     const app2 = await init(app);
-    console.log({ app2 })
   };
 
   const { app, eventEmitter, connectWithDb, logger } = await setupCore();
-  // console.log({ app, eventEmitter, connectWithDb, logger})
 
   try {
     await configureRoutes(app);

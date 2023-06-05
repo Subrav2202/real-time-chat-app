@@ -6,7 +6,7 @@ export const registerUser = (payload) => {
   return async (dispatch) => {
     try {
       console.log(payload);
-      const res = await axiosApi.post(api_url.register, payload);
+      const res = await axiosApi.postMultipart(api_url.register, payload);
 
       //   dispatch(REGISTER_USER, res.data);
     } catch (error) {
@@ -17,12 +17,9 @@ export const registerUser = (payload) => {
 export const loginUser = (payload) => {
   return async (dispatch) => {
     try {
-      console.log({ payload });
       const res = await axiosApi.post(api_url.login, payload);
-      console.log({ res });
       dispatch({ type: LOGIN_USER, payload: res?.data?.data });
-      console.log(res?.data?.data?.accessToken);
-      localStorage.setItem("accessToken", res?.data?.data?.accessToken ?? "");
+      await localStorage.setItem("accessToken", res?.data?.data?.accessToken ?? "");
     } catch (error) {
       console.log(error);
     }

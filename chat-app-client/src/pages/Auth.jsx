@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import AnimatedInput from "../components/AnimatedInput";
 import appLogo from "../assets/images/chat-app-logo-1.jpg";
 import RegularButton from "../components/RegularButton";
-import { emailRegex, snowFlakeFlowers } from "../configs/constants";
+import { emailRegex, moNumRegex, snowFlakeFlowers } from "../configs/constants";
 import { useForm } from "react-hook-form";
 import { loginUser, registerUser } from "../store/user/userAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,9 +12,12 @@ import { useNavigate } from "react-router-dom";
 
 function Auth() {
   const intiValue = {
-    userName: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
+    phnNo: "",
+    profilePic: "",
   };
   const {
     register,
@@ -25,20 +28,29 @@ function Auth() {
     defaultValues: intiValue,
   });
   const [islogin, setIslogin] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
 
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
-  const handleLogin = (loginData) => {
-    const { userName, ...rest } = loginData;
-    console.log({loginData})
-    dispatch(loginUser(rest));
-    user?.accessToken && navigate("/chat");
+  const handleLogin = async(loginData) => {
+    const { firstName, lastName, phnNo, profilePic, ...rest } = loginData;
+    await dispatch(loginUser(rest));
+    reset()
+    const token = await localStorage.getItem("accessToken")
+    token && navigate("/chat");
   };
   const handleSignUp = (registerData) => {
-    dispatch(registerUser(registerData));
+    const formData = new FormData();
+    formData.append("firstName",registerData?.firstName);
+    formData.append("lastName", registerData?.lastName);
+    formData.append("password", registerData?.password);
+    formData.append("email", registerData?.email);
+    formData.append("phnNo", registerData?.phnNo);
+    formData.append("file", registerData?.profilePic?.[0]); // Assuming you have a file object
+    dispatch(registerUser(formData));
+    reset()
+    setIslogin(!islogin)
   };
 
   return (
@@ -94,8 +106,7 @@ function Auth() {
                   <span
                     className="regular-text"
                     onClick={() => {
-                      setIsMounted(true);
-                      setIslogin(false);
+                      setIslogin(!islogin);
                       reset();
                     }}
                   >
@@ -105,7 +116,7 @@ function Auth() {
               </form>
             </div>
           </div>
-          {isMounted && (
+          {!islogin && (
             <div
               className={`form-container ${
                 islogin ? "slide-down" : "slide-up-down"
@@ -123,14 +134,43 @@ function Auth() {
                   <AnimatedInput>
                     <input
                       type="text"
-                      placeholder="Name"
-                      name="userName"
-                      {...register("userName", { required: true })}
+                      placeholder="First Name"
+                      name="firstName"
+                      {...register("firstName", {
+                        required: true,
+                        minLength: 3,
+                      })}
                     />
                   </AnimatedInput>
-                  {errors.userName?.type === "required" && (
+                  {errors.firstName?.type === "required" && (
                     <span className="error-message">
-                      User name is required.
+                      First name is required.
+                    </span>
+                  )}
+                  {errors.firstName?.type === "minLength" && (
+                    <span className="error-message">
+                      Please enter minimun 3 charecter.
+                    </span>
+                  )}
+                  <AnimatedInput>
+                    <input
+                      type="text"
+                      placeholder="Last Name"
+                      name="lastName"
+                      {...register("lastName", {
+                        required: true,
+                        minLength: 3,
+                      })}
+                    />
+                  </AnimatedInput>
+                  {errors.lastName?.type === "required" && (
+                    <span className="error-message">
+                      Last name is required.
+                    </span>
+                  )}
+                  {errors.lastName?.type === "minLength" && (
+                    <span className="error-message">
+                      Please enter minimun 3 charecter.
                     </span>
                   )}
                   <AnimatedInput>
@@ -154,14 +194,57 @@ function Auth() {
                   )}
                   <AnimatedInput>
                     <input
+                      name="phnNo"
+                      type="text"
+                      placeholder="Mobile number"
+                      {...register("phnNo", {
+                        pattern: moNumRegex,
+                        required: true,
+                      })}
+                    />
+                  </AnimatedInput>
+                  {errors.phnNo?.type === "required" && (
+                    <span className="error-message">
+                      Mobile number is required.
+                    </span>
+                  )}
+                  {errors.phnNo?.type === "pattern" && (
+                    <span className="error-message">
+                      Please enter a valid mobile number address.
+                    </span>
+                  )}
+                  <AnimatedInput>
+                    <input
                       name="password"
                       type="password"
                       placeholder="Password"
-                      {...register("password", { required: true })}
+                      {...register("password", {
+                        required: true,
+                        minLength: 3,
+                      })}
                     />
                   </AnimatedInput>
                   {errors.password?.type === "required" && (
                     <span className="error-message">Password is required.</span>
+                  )}
+                  {errors.password?.type === "minLength" && (
+                    <span className="error-message">
+                      Please enter minimun 3 charecter password.
+                    </span>
+                  )}
+                  <AnimatedInput>
+                    <input
+                      name="profilePic"
+                      type="file"
+                      multiple={false}
+                      placeholder="Profile picture"
+                      {...register("profilePic", { required: true })}
+                    />
+                  </AnimatedInput>
+                  {errors.profilePic?.type === "required" && (
+                    <span className="error-message">
+                      Profile picture is required.
+                    </span>
                   )}
                   <div className="action-button">
                     <RegularButton type="submit" label="Sign Up" />
@@ -170,7 +253,7 @@ function Auth() {
                     <span
                       className="regular-text"
                       onClick={() => {
-                        setIslogin(true);
+                        setIslogin(!islogin);
                         reset();
                       }}
                     >

@@ -9,24 +9,24 @@ export const axiosApi = axios.create({
 });
 
 // Add a request interceptor
-// axiosApi.interceptors.request.use(
-//   (config) => {
-//     // console.log(config);
-//     // if (!config.url.includes("login") && !config.url.includes("register")) {
-//     //     console.log('hello')
-//     //   const token = localStorage.getItem(accessToken);
-//     //   if (token) {
-//     //     config.headers["Authorization"] = "Bearer " + token;
-//     //   }
-//     //   config.headers["Content-Type"] = "application/json";
-//     //   return config;
-//     // }
-//   },
-//   (error) => {
-//     console.log('hh')
-//     Promise.reject(error);
-//   }
-// );
+axiosApi.interceptors.request.use(
+  (config) => {
+    console.log(config);
+    if (!config.url.includes("login") && !config.url.includes("register")) {
+        console.log('hello')
+      const token = localStorage.getItem(accessToken);
+      if (token) {
+        config.headers["Authorization"] = "Bearer " + token;
+      }
+      config.headers["Content-Type"] = "application/json";
+      return config;
+    }
+  },
+  (error) => {
+    console.log('hh')
+    Promise.reject(error);
+  }
+);
 
 axiosApi.interceptors.response.use(
   (response) => response,

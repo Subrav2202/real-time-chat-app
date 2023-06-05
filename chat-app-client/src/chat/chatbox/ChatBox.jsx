@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 function ChatBox() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-console.log(user);
+  console.log(user);
   useEffect(() => {
     dispatch(getChatHistory(user?._id));
   }, []);

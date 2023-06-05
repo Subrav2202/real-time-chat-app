@@ -11,27 +11,47 @@
     gap: 2.2rem;
   }
 }
-.search-wrapper{
+.search-wrapper {
   display: flex;
   margin-top: 0.8rem;
   background: rgb(23, 26, 36);
   border-radius: 0.4rem;
   border-bottom: 0.1px solid rgb(107, 107, 107);
-    input{
-        width: 90%;
-        border: none;
+  input {
+    width: 90%;
+    border: none;
+    color: white;
+    background: inherit;
+    padding: 0.5rem 1rem;
+    border-radius: 0.4rem 0 0 0.4rem;
+  }
+  input:focus {
+    outline: none;
+  }
+  div {
+    padding: 0 10px;
+    border-radius: 0 0.4rem 0.4rem 0;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.contact-wrapper {
+  height: 81vh;
+  margin-top: 1rem;
+  .contact-info {
+    background: rgb(23, 26, 36);
+    border-radius: 0.5rem;
+    display: flex;
+    padding: 0.8rem 1rem;
+    .name-wrapper {
+      margin-left: 1rem;
+      .name {
+        margin: 0;
+        font-weight: 400;
+        font-size: 1rem;
         color: white;
-        background: inherit;
-        padding: 0.5rem 1rem;
-        border-radius: 0.4rem 0 0 0.4rem;
+      }
     }
-    input:focus{
-      outline: none;
-    }
-    div{
-      padding: 0 10px;
-      border-radius:0 0.4rem 0.4rem 0;
-      display: flex;
-      align-items: center;
-    }
+  }
 }

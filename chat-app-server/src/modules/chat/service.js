@@ -26,7 +26,7 @@ const getChatHistoryById = async (senderId) => {
     const user = await UserModel.findById(senderId)
     .populate({
       path: 'chatHistory',
-      select: 'email userName createdAt'
+      select: 'email firstName lastName phnNo imageUrl createdAt'
     })
     if (user.chatHistory.length) {
         return user.chatHistory

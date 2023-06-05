@@ -5,12 +5,7 @@
   padding: 10px 16px;
   align-items: center;
   border-bottom: 1px solid rgb(46, 46, 46);
-  .avatar {
-    height: 2.5rem;
-    width: 2.5rem;
-    border-radius: 50%;
-  }
-  .name-wrapper {
+   .name-wrapper {
     margin-left: 1.5rem;
     .name {
       margin: 0;
@@ -27,4 +22,9 @@
   .icons{
     margin-left: auto;
   }
+}
+.avatar {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
 }

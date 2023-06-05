@@ -33,31 +33,12 @@ function Auth() {
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
-  console.log({ user });
-
-  useEffect(() => {
-    if (user.length) {
-      // Asynchronous function to set a value in localStorage
-      const setItemInLocalStorage = (key, value) => {
-        return new Promise((resolve) => {
-          localStorage.setItem(key, value);
-          resolve();
-        });
-      };
-      // Set the value in localStorage
-      setItemInLocalStorage("accessToken", user?.accessToken).then(() => {
-        navigate("/chat");
-      });
-    }
-
-    return () => {};
-  }, [user]);
-
-  const handleLogin = (loginData) => {
+  const handleLogin = async (loginData) => {
     const { email, password, ...rest } = loginData;
-    dispatch(loginUser({ email, password }));
-    // navigate("/chat");
-    // reset();
+    await dispatch(loginUser({ email, password }));
+    localStorage.setItem("accessToken", user?.accessToken);
+    navigate("/chat");
+    reset();
   };
   const handleSignUp = (registerData) => {
     const formData = new FormData();
